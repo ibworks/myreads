@@ -8,7 +8,8 @@ const BookList = () => {
   const [books, setBooks] = useState([]);
 
   const refreshData = async () => {
-      const res = await BooksAPI.getAll();
+    const res = await BooksAPI.getAll();  
+    console.debug("Got books", {count: Object.keys(res).length});
       setBooks(res);
   };
   
@@ -17,14 +18,14 @@ const BookList = () => {
   }, []);
 
   const setShelf = (book, shelf) => {
-    console.log('setShelf', { book, shelf });
+    console.debug('Setting book shelf', { book, shelf });
     const update = async () => {
-      const res = await BooksAPI.update(book, shelf);
-      console.log({ res });
-    }
+      await BooksAPI.update(book, shelf);
+      
+      refreshData();
+    };
     
     update();
-    refreshData();
   };
 
   const GetBooks = (shelf) => books.filter(b => b.shelf === shelf);
