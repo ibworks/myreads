@@ -8,7 +8,7 @@ const BookCover = ({ imageLinks }) => {
         setImageUrl(url);
     }, [imageLinks]);
 
-    const coverStyle = imageUrl && { backgroundImage: `url('${imageUrl}')` };
+    const coverStyle = imageUrl && { backgroundImage: `url('${imageUrl}')` } || {};
 
     return <div className="book-cover" style={coverStyle} />;
 }
