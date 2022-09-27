@@ -14,7 +14,7 @@ function App() {
     const res = await BooksAPI.getAll(); 
       setBooks(res);
   };
-  
+
   useEffect(() => {
     refreshData();
   }, []);
@@ -28,11 +28,13 @@ function App() {
     
     update();
   };
+
   return (
 
     <Routes>
       <Route exact path="/" element={<BookList books={books} setShelf={setShelf}/>} />
-      <Route exact path="/search" element={<BookSearch maxResults={maxSearchResults} setShelf={setShelf} />} />
+      <Route exact path="/search" element={
+        <BookSearch shelvedBooks={books} maxResults={maxSearchResults} setShelf={setShelf} />} />
     </Routes>
    );
 }

@@ -3,20 +3,21 @@ import { useEffect, useState } from "react";
 import BooksGrid from "./BooksGrid";
 import * as BooksAPI from "./BooksAPI";
 
-const BookSearch = ({setShelf, maxResults}) => {
+const BookSearch = ({setShelf, maxResults, shelvedBooks}) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
 
+  const bookDictionary = shelvedBooks && Object.assign({}, ...shelvedBooks.map((x) => ({ [x.id]: x.shelf }))) || [{}];
   const search = async () => { 
     if (query.length < 1) return;
-    
+
     const res = await BooksAPI.search(query, maxResults); 
     
     if (res.error) {
       console.debug(`booksApi.search("${query}", ${maxResults}) failed: ${res.error}`);
       setResults([]);
     } else {
-      setResults(res);
+      setResults(res.map(r => ({ ...r, shelf: bookDictionary[r.id] || 'none'})));
     }
   };
 
