@@ -13,7 +13,7 @@ const Book = ({ book, setShelf }) => {
                 <BookshelfChanger shelf={shelf} setShelf={(shelf) => setShelf(book, shelf)} />
             </div>
             <div className="book-title">{title}</div>
-            <div className="book-authors">{authors}</div>
+            <div className="book-authors">{authors && authors.join(', ')}</div>
         </div>);
 }
 

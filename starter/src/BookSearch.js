@@ -9,11 +9,11 @@ const BookSearch = ({setShelf, maxResults}) => {
 
   const search = async () => { 
     if (query.length < 1) return;
-    console.debug(`Search: ${query}`);
+    
     const res = await BooksAPI.search(query, maxResults); 
     
     if (res.error) {
-      console.error(res.error);
+      console.debug(`booksApi.search("${query}", ${maxResults}) failed: ${res.error}`);
       setResults([]);
     } else {
       setResults(res);
